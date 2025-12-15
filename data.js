@@ -1,106 +1,149 @@
 // Dados estáticos do sistema de rastreamento Catirose - Wheaton
 
-// Itinerários completos das linhas (coordenadas aproximadas de São José dos Campos/SP)
+// Itinerários completos das linhas (coordenadas reais de São José dos Campos)
 const itinerarios = {
     "linha-01": {
-        nome: "Linha 01 - Wheaton",
+        nome: "Linha 01 - Wheaton (Vila São Pedro)",
         pontos: [
-            [-45.9125, -23.1896], // Ponto de partida
-            [-45.9102, -23.1901],
-            [-45.9088, -23.1912],
-            [-45.9075, -23.1923],
-            [-45.9061, -23.1934],
-            [-45.9047, -23.1945],
-            [-45.9033, -23.1956],
-            [-45.9019, -23.1967],
-            [-45.9005, -23.1978],
-            [-45.8991, -23.1989], // Wheaton
-            [-45.8977, -23.2000],
-            [-45.8963, -23.2011],
-            [-45.8949, -23.2022],
-            [-45.8935, -23.2033]
+            // PONTO INICIAL - AV. LUIZ PEQUINI, 688
+            [-45.8673, -23.2112], // Av. Luiz Pequini, 688
+            
+            // Saída: Av. Álvaro Guimarães
+            [-45.8695, -23.2098],
+            
+            // Av. Dom Pedro de Alcântara
+            [-45.8721, -23.2079],
+            
+            // Rua Jardim
+            [-45.8745, -23.2055],
+            
+            // Rua Tiradentes
+            [-45.8772, -23.2028],
+            
+            // Av. Frei Gaspar
+            [-45.8798, -23.2001],
+            
+            // Av. Brigadeiro Faria Lima
+            [-45.8825, -23.1973],
+            
+            // Acesso ao viaduto para Av. Rotary
+            [-45.8852, -23.1945],
+            
+            // Rodovia Anchieta (trecho próximo)
+            [-45.8880, -23.1917],
+            
+            // Retorno: Av. Rotary
+            [-45.8855, -23.1940],
+            
+            // Av. João Firmino
+            [-45.8828, -23.1967],
+            
+            // Rua Tiradentes (retorno)
+            [-45.8801, -23.1994],
+            
+            // Rua Jardim (retorno)
+            [-45.8774, -23.2021],
+            
+            // Av. Dom Pedro de Alcântara (retorno)
+            [-45.8747, -23.2048],
+            
+            // WHEATON BRASIL (Destino)
+            [-45.8719, -23.2076], // Wheaton Brasil
+            
+            // Retorno final: Av. Luiz Pequini, 688
+            [-45.8692, -23.2103],
+            [-45.8675, -23.2115]
         ],
         paradas: [
-            { nome: "Terminal Central", coordenadas: [-45.9125, -23.1896] },
-            { nome: "Av. São João", coordenadas: [-45.9102, -23.1901] },
-            { nome: "Rua das Flores", coordenadas: [-45.9088, -23.1912] },
-            { nome: "Praça da República", coordenadas: [-45.9075, -23.1923] },
-            { nome: "Av. Brasil", coordenadas: [-45.9061, -23.1934] },
-            { nome: "Shopping Center", coordenadas: [-45.9047, -23.1945] },
-            { nome: "Hospital Municipal", coordenadas: [-45.9033, -23.1956] },
-            { nome: "Universidade", coordenadas: [-45.9019, -23.1967] },
-            { nome: "Parque Industrial", coordenadas: [-45.9005, -23.1978] },
-            { nome: "Wheaton Brasil", coordenadas: [-45.8991, -23.1989] },
-            { nome: "Condomínio Portal do Sol", coordenadas: [-45.8977, -23.2000] },
-            { nome: "Supermercado", coordenadas: [-45.8963, -23.2011] },
-            { nome: "Posto de Saúde", coordenadas: [-45.8949, -23.2022] },
-            { nome: "Terminal Leste", coordenadas: [-45.8935, -23.2033] }
+            { 
+                nome: "Ponto Inicial - Av. Luiz Pequini, 688", 
+                coordenadas: [-45.8673, -23.2112],
+                tipo: "partida"
+            },
+            { 
+                nome: "Av. Álvaro Guimarães", 
+                coordenadas: [-45.8695, -23.2098],
+                tipo: "parada"
+            },
+            { 
+                nome: "Av. Dom Pedro de Alcântara", 
+                coordenadas: [-45.8721, -23.2079],
+                tipo: "parada"
+            },
+            { 
+                nome: "Rua Jardim", 
+                coordenadas: [-45.8745, -23.2055],
+                tipo: "parada"
+            },
+            { 
+                nome: "Rua Tiradentes", 
+                coordenadas: [-45.8772, -23.2028],
+                tipo: "parada"
+            },
+            { 
+                nome: "Av. Frei Gaspar", 
+                coordenadas: [-45.8798, -23.2001],
+                tipo: "parada"
+            },
+            { 
+                nome: "Av. Brigadeiro Faria Lima", 
+                coordenadas: [-45.8825, -23.1973],
+                tipo: "parada"
+            },
+            { 
+                nome: "Acesso viaduto Av. Rotary", 
+                coordenadas: [-45.8852, -23.1945],
+                tipo: "parada"
+            },
+            { 
+                nome: "Rodovia Anchieta", 
+                coordenadas: [-45.8880, -23.1917],
+                tipo: "referencia"
+            },
+            { 
+                nome: "Av. Rotary", 
+                coordenadas: [-45.8855, -23.1940],
+                tipo: "parada"
+            },
+            { 
+                nome: "Av. João Firmino", 
+                coordenadas: [-45.8828, -23.1967],
+                tipo: "parada"
+            },
+            { 
+                nome: "Rua Tiradentes (retorno)", 
+                coordenadas: [-45.8801, -23.1994],
+                tipo: "parada"
+            },
+            { 
+                nome: "Rua Jardim (retorno)", 
+                coordenadas: [-45.8774, -23.2021],
+                tipo: "parada"
+            },
+            { 
+                nome: "Av. Dom Pedro de Alcântara (retorno)", 
+                coordenadas: [-45.8747, -23.2048],
+                tipo: "parada"
+            },
+            { 
+                nome: "Wheaton Brasil", 
+                coordenadas: [-45.8719, -23.2076],
+                tipo: "destino"
+            },
+            { 
+                nome: "Ponto Final - Av. Luiz Pequini, 688", 
+                coordenadas: [-45.8675, -23.2115],
+                tipo: "chegada"
+            }
         ],
-        horarios: ["05:05", "05:35", "06:05", "06:35", "07:05", "07:35", "13:05", "13:35", "14:05", "14:35", "15:05", "15:35", "16:05", "16:35", "17:05", "17:35"]
-    },
-    "linha-02": {
-        nome: "Linha 02 - Industrial",
-        pontos: [
-            [-45.9200, -23.1850],
-            [-45.9185, -23.1862],
-            [-45.9170, -23.1874],
-            [-45.9155, -23.1886],
-            [-45.9140, -23.1898],
-            [-45.9125, -23.1910],
-            [-45.9110, -23.1922],
-            [-45.9095, -23.1934],
-            [-45.9080, -23.1946],
-            [-45.9065, -23.1958],
-            [-45.9050, -23.1970],
-            [-45.9035, -23.1982]
+        // Horários reais do PDF: 05:05, 13:05, 21:05
+        horarios: [
+            "05:05", "05:35", "06:05", "06:35", "07:05", "07:35",
+            "13:05", "13:35", "14:05", "14:35", "15:05", "15:35",
+            "21:05", "21:35", "22:05", "22:35"
         ],
-        paradas: [
-            { nome: "Terminal Norte", coordenadas: [-45.9200, -23.1850] },
-            { nome: "Rua Industrial", coordenadas: [-45.9185, -23.1862] },
-            { nome: "Fábrica Textil", coordenadas: [-45.9170, -23.1874] },
-            { nome: "Distrito Industrial", coordenadas: [-45.9155, -23.1886] },
-            { nome: "Armazéns Gerais", coordenadas: [-45.9140, -23.1898] },
-            { nome: "Posto Combustível", coordenadas: [-45.9125, -23.1910] },
-            { nome: "Restaurante", coordenadas: [-45.9110, -23.1922] },
-            { nome: "Escola Técnica", coordenadas: [-45.9095, -23.1934] },
-            { nome: "Parque Tecnológico", coordenadas: [-45.9080, -23.1946] },
-            { nome: "Wheaton Brasil", coordenadas: [-45.9065, -23.1958] },
-            { nome: "Condomínio Industrial", coordenadas: [-45.9050, -23.1970] },
-            { nome: "Terminal Sul", coordenadas: [-45.9035, -23.1982] }
-        ],
-        horarios: ["05:15", "05:45", "06:15", "06:45", "07:15", "07:45", "13:15", "13:45", "14:15", "14:45", "15:15", "15:45", "16:15", "16:45", "17:15", "17:45"]
-    },
-    "linha-03": {
-        nome: "Linha 03 - Centro",
-        pontos: [
-            [-45.8950, -23.1800],
-            [-45.8965, -23.1812],
-            [-45.8980, -23.1824],
-            [-45.8995, -23.1836],
-            [-45.9010, -23.1848],
-            [-45.9025, -23.1860],
-            [-45.9040, -23.1872],
-            [-45.9055, -23.1884],
-            [-45.9070, -23.1896],
-            [-45.9085, -23.1908],
-            [-45.9100, -23.1920],
-            [-45.9115, -23.1932]
-        ],
-        paradas: [
-            { nome: "Terminal Oeste", coordenadas: [-45.8950, -23.1800] },
-            { nome: "Praça da Matriz", coordenadas: [-45.8965, -23.1812] },
-            { nome: "Catedral", coordenadas: [-45.8980, -23.1824] },
-            { nome: "Prefeitura", coordenadas: [-45.8995, -23.1836] },
-            { nome: "Fórum", coordenadas: [-45.9010, -23.1848] },
-            { nome: "Teatro Municipal", coordenadas: [-45.9025, -23.1860] },
-            { nome: "Biblioteca", coordenadas: [-45.9040, -23.1872] },
-            { nome: "Museu", coordenadas: [-45.9055, -23.1884] },
-            { nome: "Shopping Downtown", coordenadas: [-45.9070, -23.1896] },
-            { nome: "Wheaton Brasil", coordenadas: [-45.9085, -23.1908] },
-            { nome: "Hospital Santa Casa", coordenadas: [-45.9100, -23.1920] },
-            { nome: "Terminal Leste", coordenadas: [-45.9115, -23.1932] }
-        ],
-        horarios: ["05:25", "05:55", "06:25", "06:55", "07:25", "07:55", "13:25", "13:55", "14:25", "14:55", "15:25", "15:55", "16:25", "16:55", "17:25", "17:55"]
+        distancia: "8 km",
+        diasOperacao: "2ª a Domingo"
     }
 };
 
