@@ -1,3 +1,5 @@
+[file name]: data.js
+[file content begin]
 /* ============================================================
    DATA.JS - Sistema de Rastreamento de Fretados
    Empresa: Catirose
@@ -33,55 +35,107 @@ const itinerarios = {
     tipo: "circular",
     pontos: [
       /* ===== IDA - ENTRADA ===== */
-      { nome: "Av. São Bernardo x R. dos Vianas", lat: -23.7048, lng: -46.5559 },
-      { nome: "Rua dos Vianas", lat: -23.7054, lng: -46.5538 },
-      { nome: "Av. Luiz Pequini (Assembléia)", lat: -23.7072, lng: -46.5515 },
-      { nome: "Rua Helena Aparecida Secol", lat: -23.7081, lng: -46.5498 },
-      { nome: "Av. Nelson Mandela", lat: -23.7093, lng: -46.5482 },
-      { nome: "Av. Luiz Pequini", lat: -23.7110, lng: -46.5464 },
-      { nome: "Av. Pery Ronchetti", lat: -23.7128, lng: -46.5451 },
-      { nome: "Rua Maria do Carmo da Silva", lat: -23.7141, lng: -46.5460 },
-      { nome: "Rua dos Vianas", lat: -23.7156, lng: -46.5485 },
-      { nome: "Rua Itamarati", lat: -23.7169, lng: -46.5502 },
-      { nome: "Rua Joana Zanólia Degelo", lat: -23.7181, lng: -46.5519 },
-      { nome: "Rua Giacinto Tognato", lat: -23.7194, lng: -46.5534 },
-      { nome: "Rua Celeste Pinchieri", lat: -23.7206, lng: -46.5550 },
-      { nome: "Rua Amadeu Rossignolo", lat: -23.7218, lng: -46.5566 },
-      { nome: "Rua dos Vianas", lat: -23.7229, lng: -46.5583 },
-      { nome: "Av. Princesa Francisca Carolina", lat: -23.7241, lng: -46.5601 },
-      { nome: "Av. Imperador D. Pedro II", lat: -23.7256, lng: -46.5618 },
-      { nome: "Rua Giácomo Versolato", lat: -23.7271, lng: -46.5635 },
-      { nome: "Rua Vicente Galafassi", lat: -23.7285, lng: -46.5650 },
-      { nome: "Rua Paschoal Gastaldo", lat: -23.7299, lng: -46.5666 },
-      { nome: "Rua Tiradentes", lat: -23.7313, lng: -46.5682 },
-      { nome: "Rua Américo Brasiliense", lat: -23.7326, lng: -46.5697 },
-      { nome: "Rua Joaquim Nabuco", lat: -23.7340, lng: -46.5711 },
-      { nome: "Av. João Firmino", lat: -23.7356, lng: -46.5724 },
-      { nome: "Av. Álvaro Guimarães", lat: -23.7372, lng: -46.5738 },
-      { nome: "Wheaton Brasil SBC", lat: -23.7390, lng: -46.5751 },
+      [-46.5559, -23.7048], // Av. São Bernardo x R. dos Vianas
+      [-46.5538, -23.7054], // Rua dos Vianas
+      [-46.5515, -23.7072], // Av. Luiz Pequini (Assembléia)
+      [-46.5498, -23.7081], // Rua Helena Aparecida Secol
+      [-46.5482, -23.7093], // Av. Nelson Mandela
+      [-46.5464, -23.7110], // Av. Luiz Pequini
+      [-46.5451, -23.7128], // Av. Pery Ronchetti
+      [-46.5460, -23.7141], // Rua Maria do Carmo da Silva
+      [-46.5485, -23.7156], // Rua dos Vianas
+      [-46.5502, -23.7169], // Rua Itamarati
+      [-46.5519, -23.7181], // Rua Joana Zanólia Degelo
+      [-46.5534, -23.7194], // Rua Giacinto Tognato
+      [-46.5550, -23.7206], // Rua Celeste Pinchieri
+      [-46.5566, -23.7218], // Rua Amadeu Rossignolo
+      [-46.5583, -23.7229], // Rua dos Vianas
+      [-46.5601, -23.7241], // Av. Princesa Francisca Carolina
+      [-46.5618, -23.7256], // Av. Imperador D. Pedro II
+      [-46.5635, -23.7271], // Rua Giácomo Versolato
+      [-46.5650, -23.7285], // Rua Vicente Galafassi
+      [-46.5666, -23.7299], // Rua Paschoal Gastaldo
+      [-46.5682, -23.7313], // Rua Tiradentes
+      [-46.5697, -23.7326], // Rua Américo Brasiliense
+      [-46.5711, -23.7340], // Rua Joaquim Nabuco
+      [-46.5724, -23.7356], // Av. João Firmino
+      [-46.5738, -23.7372], // Av. Álvaro Guimarães
+      [-46.5751, -23.7390], // Wheaton Brasil SBC
 
       /* ===== VOLTA - SAÍDA ===== */
-      { nome: "Av. Álvaro Guimarães", lat: -23.7374, lng: -46.5740 },
-      { nome: "Av. João Firmino", lat: -23.7358, lng: -46.5726 },
-      { nome: "Rua Frei Gaspar", lat: -23.7343, lng: -46.5712 },
-      { nome: "Av. Faria Lima", lat: -23.7328, lng: -46.5696 },
-      { nome: "Av. Rotary", lat: -23.7312, lng: -46.5680 },
-      { nome: "Rua Tiradentes", lat: -23.7298, lng: -46.5664 },
-      { nome: "Av. Francisco Prestes Maia", lat: -23.7283, lng: -46.5648 },
-      { nome: "Rua José Benedetti", lat: -23.7268, lng: -46.5633 },
-      { nome: "Rua Giácomo Versolato", lat: -23.7253, lng: -46.5619 },
-      { nome: "Rua Vicente Galafassi", lat: -23.7239, lng: -46.5604 },
-      { nome: "Av. Wallace Simonsen", lat: -23.7224, lng: -46.5589 },
-      { nome: "Trav. Beniamino Gigli", lat: -23.7210, lng: -46.5574 },
-      { nome: "Av. D. Pedro de Alcântara", lat: -23.7195, lng: -46.5560 },
-      { nome: "Av. Pery Ronchetti", lat: -23.7179, lng: -46.5545 },
-      { nome: "Rua Érico Verissimo", lat: -23.7164, lng: -46.5531 },
-      { nome: "Rua dos Vianas", lat: -23.7149, lng: -46.5517 },
-      { nome: "Rua Itamarati", lat: -23.7134, lng: -46.5503 },
-      { nome: "Rua Joana Zanólia Degelo", lat: -23.7119, lng: -46.5489 },
-      { nome: "Rua Giacinto Tognato", lat: -23.7104, lng: -46.5475 },
-      { nome: "Rua Reducíno Germano da Silva", lat: -23.7089, lng: -46.5462 },
-      { nome: "Rua dos Vianas x Av. São Bernardo", lat: -23.7048, lng: -46.5559 }
+      [-46.5740, -23.7374], // Av. Álvaro Guimarães
+      [-46.5726, -23.7358], // Av. João Firmino
+      [-46.5712, -23.7343], // Rua Frei Gaspar
+      [-46.5696, -23.7328], // Av. Faria Lima
+      [-46.5680, -23.7312], // Av. Rotary
+      [-46.5664, -23.7298], // Rua Tiradentes
+      [-46.5648, -23.7283], // Av. Francisco Prestes Maia
+      [-46.5633, -23.7268], // Rua José Benedetti
+      [-46.5619, -23.7253], // Rua Giácomo Versolato
+      [-46.5604, -23.7239], // Rua Vicente Galafassi
+      [-46.5589, -23.7224], // Av. Wallace Simonsen
+      [-46.5574, -23.7210], // Trav. Beniamino Gigli
+      [-46.5560, -23.7195], // Av. D. Pedro de Alcântara
+      [-46.5545, -23.7179], // Av. Pery Ronchetti
+      [-46.5531, -23.7164], // Rua Érico Verissimo
+      [-46.5517, -23.7149], // Rua dos Vianas
+      [-46.5503, -23.7134], // Rua Itamarati
+      [-46.5489, -23.7119], // Rua Joana Zanólia Degelo
+      [-46.5475, -23.7104], // Rua Giacinto Tognato
+      [-46.5462, -23.7089], // Rua Reducíno Germano da Silva
+      [-46.5559, -23.7048]  // Rua dos Vianas x Av. São Bernardo
+    ],
+    pontosInfo: [
+      /* ===== IDA - ENTRADA ===== */
+      { nome: "Av. São Bernardo x R. dos Vianas" },
+      { nome: "Rua dos Vianas" },
+      { nome: "Av. Luiz Pequini (Assembléia)" },
+      { nome: "Rua Helena Aparecida Secol" },
+      { nome: "Av. Nelson Mandela" },
+      { nome: "Av. Luiz Pequini" },
+      { nome: "Av. Pery Ronchetti" },
+      { nome: "Rua Maria do Carmo da Silva" },
+      { nome: "Rua dos Vianas" },
+      { nome: "Rua Itamarati" },
+      { nome: "Rua Joana Zanólia Degelo" },
+      { nome: "Rua Giacinto Tognato" },
+      { nome: "Rua Celeste Pinchieri" },
+      { nome: "Rua Amadeu Rossignolo" },
+      { nome: "Rua dos Vianas" },
+      { nome: "Av. Princesa Francisca Carolina" },
+      { nome: "Av. Imperador D. Pedro II" },
+      { nome: "Rua Giácomo Versolato" },
+      { nome: "Rua Vicente Galafassi" },
+      { nome: "Rua Paschoal Gastaldo" },
+      { nome: "Rua Tiradentes" },
+      { nome: "Rua Américo Brasiliense" },
+      { nome: "Rua Joaquim Nabuco" },
+      { nome: "Av. João Firmino" },
+      { nome: "Av. Álvaro Guimarães" },
+      { nome: "Wheaton Brasil SBC" },
+
+      /* ===== VOLTA - SAÍDA ===== */
+      { nome: "Av. Álvaro Guimarães" },
+      { nome: "Av. João Firmino" },
+      { nome: "Rua Frei Gaspar" },
+      { nome: "Av. Faria Lima" },
+      { nome: "Av. Rotary" },
+      { nome: "Rua Tiradentes" },
+      { nome: "Av. Francisco Prestes Maia" },
+      { nome: "Rua José Benedetti" },
+      { nome: "Rua Giácomo Versolato" },
+      { nome: "Rua Vicente Galafassi" },
+      { nome: "Av. Wallace Simonsen" },
+      { nome: "Trav. Beniamino Gigli" },
+      { nome: "Av. D. Pedro de Alcântara" },
+      { nome: "Av. Pery Ronchetti" },
+      { nome: "Rua Érico Verissimo" },
+      { nome: "Rua dos Vianas" },
+      { nome: "Rua Itamarati" },
+      { nome: "Rua Joana Zanólia Degelo" },
+      { nome: "Rua Giacinto Tognato" },
+      { nome: "Rua Reducíno Germano da Silva" },
+      { nome: "Rua dos Vianas x Av. São Bernardo" }
     ]
   }
 };
@@ -96,7 +150,10 @@ const frota = [
     linha: "linha-08",
     status: "em_rota",
     motorista: "Motorista Padrão",
-    placa: "EBC-8008"
+    placa: "EBC-8008",
+    modelo: "Mercedes-Benz OF-1721",
+    ano: 2022,
+    capacidade: 45
   }
 ];
 
@@ -104,13 +161,13 @@ const frota = [
    HORÁRIOS
    ========================= */
 const horarios = {
-  "linha-08": {
-    pontoInicial: ["05:00", "07:00", "12:55", "21:00"],
-    wheaton: {
-      todosOsDias: ["06:20", "14:20", "22:20"],
-      segundaASexta: ["17:15"]
-    }
-  }
+  "linha-08": [
+    { saida: "05:00", chegada: "05:45", status: "concluido" },
+    { saida: "07:00", chegada: "07:45", status: "em_andamento" },
+    { saida: "12:55", chegada: "13:40", status: "programado" },
+    { saida: "17:15", chegada: "18:00", status: "programado" },
+    { saida: "21:00", chegada: "21:45", status: "programado" }
+  ]
 };
 
 /* =========================
@@ -118,8 +175,9 @@ const horarios = {
    ========================= */
 const posicoesTempoReal = {
   "CAT-008": {
-    lat: -23.7128,
     lng: -46.5451,
+    lat: -23.7128,
+    progresso: 15, // 15% do percurso
     velocidade_kmh: 38,
     ultimaAtualizacao: new Date().toISOString()
   }
@@ -133,3 +191,4 @@ window.itinerarios = itinerarios;
 window.frota = frota;
 window.horarios = horarios;
 window.posicoesTempoReal = posicoesTempoReal;
+[file content end]

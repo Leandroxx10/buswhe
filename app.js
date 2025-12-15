@@ -66,6 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStaticData();
     initializeWebSocket();
     updateUI();
+    AppState.map.on('load', () => {
+    showToast('Mapa carregado com sucesso!', 'success');
+    initializeRoutes(); // Inicializar rotas
+    updateMapMarkers();
+});
     
     // Atualização periódica
     setInterval(updateRealTimeData, CONFIG.UPDATE_INTERVAL);
@@ -128,6 +133,24 @@ function initializeMap() {
         console.error('Erro ao carregar mapa:', error);
         showToast('Erro ao carregar o mapa. Recarregue a página.', 'error');
     }
+}
+
+// Inicializar rotas no mapa
+function initializeRoutes() {
+    // Aguardar o mapa carregar
+    if (!AppState.map || !AppState.map.loaded()) {
+        setTimeout(initializeRoutes, 100);
+        return;
+    }
+    
+    // Desenhar rotas para cada linha
+    Object.keys(itinerarios).forEach(lineId => {
+        const itinerary = itinerarios[lineId];
+        
+        if (itinerary.pontos && itinerary.pontos.length > 1) {
+            drawRouteLine(lineId, itinerary.pontos);
+        }
+    });
 }
 
 // Inicializar geolocalização do usuário
@@ -453,7 +476,7 @@ function updateBusPositions(positionsData) {
     updateBusesList();
 }
 
-// Calcular distância entre dois pontos (em metros)
+// Calcular distância entre dois pontos (em metros) - FORMATO [lng, lat]
 function calculateDistance(point1, point2) {
     const [lng1, lat1] = point1;
     const [lng2, lat2] = point2;
@@ -507,6 +530,9 @@ function loadStaticData() {
             route: null
         };
     });
+    
+    // Inicializar rotas primeiro
+    initializeRoutes();
     
     // Atualizar marcadores no mapa
     updateMapMarkers();
@@ -631,53 +657,7 @@ function drawBusRoutes() {
     });
 }
 
-// Desenhar linha de rota
-function drawRouteLine(lineId, coordinates) {
-    const sourceId = `route-${lineId}`;
-    const layerId = `route-${lineId}-layer`;
-    
-    // Criar GeoJSON da rota
-    const routeGeoJSON = {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-            type: 'LineString',
-            coordinates: coordinates
-        }
-    };
-    
-    // Adicionar fonte
-    AppState.map.addSource(sourceId, {
-        type: 'geojson',
-        data: routeGeoJSON
-    });
-    
-    // Adicionar layer da rota (linha tracejada cinza)
-    AppState.map.addLayer({
-        id: layerId,
-        type: 'line',
-        source: sourceId,
-        layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        paint: {
-            'line-color': '#6c757d',
-            'line-width': 3,
-            'line-dasharray': [2, 2],
-            'line-opacity': 0.6
-        }
-    });
-    
-    // Salvar referência
-    AppState.busRoutes[lineId] = {
-        sourceId,
-        layerId,
-        coordinates
-    };
-}
-
-// Atualizar rota do ônibus (progresso)
+// Atualizar rota do ônibus (progresso) - VERSÃO CORRIGIDA
 function updateBusRoute(busId, progress) {
     const bus = AppState.buses[busId];
     if (!bus || !bus.position) return;
@@ -688,7 +668,7 @@ function updateBusRoute(busId, progress) {
     // Calcular ponto atual com base no progresso
     const totalPoints = linha.pontos.length;
     const progressIndex = Math.floor((progress / 100) * (totalPoints - 1));
-    const completedPoints = linha.pontos.slice(0, progressIndex + 1);
+    const completedPoints = linha.pontos.slice(0, Math.max(1, progressIndex + 1));
     
     // Criar ou atualizar layer de rota percorrida
     const completedSourceId = `route-completed-${busId}`;
@@ -702,7 +682,7 @@ function updateBusRoute(busId, progress) {
         AppState.map.removeSource(completedSourceId);
     }
     
-    // Adicionar nova rota percorrida
+    // Adicionar nova rota percorrida (apenas se tiver mais de 1 ponto)
     if (completedPoints.length > 1) {
         const completedGeoJSON = {
             type: 'Feature',
@@ -734,10 +714,12 @@ function updateBusRoute(busId, progress) {
         });
         
         // Colocar acima da rota tracejada
-        AppState.map.moveLayer(completedLayerId, `route-${bus.linha}-layer`);
+        const routeLayerId = `route-${bus.linha}-layer`;
+        if (AppState.map.getLayer(routeLayerId)) {
+            AppState.map.moveLayer(completedLayerId, routeLayerId);
+        }
     }
 }
-
 // Calcular ônibus mais próximo
 function calculateNearestBus() {
     if (!AppState.currentUserLocation || !window.posicoesTempoReal) {
@@ -1377,7 +1359,7 @@ function fitMapToBuses() {
     });
 }
 
-// Atualizar dados em tempo real - VERSÃO SIMPLES
+// Atualizar dados em tempo real - VERSÃO CORRIGIDA
 function updateRealTimeData() {
     if (CONFIG.USE_MOCK_DATA) {
         // APENAS 1 ÔNIBUS
@@ -1389,41 +1371,47 @@ function updateRealTimeData() {
             const linha = itinerarios[bus.linha];
             
             if (linha && linha.pontos && linha.pontos.length > 0) {
-                // Andar BEM DEVAGAR na rota
-                let progress = (position.progresso || 0) + 0.5;
+                // Andar na rota (1% por atualização)
+                let progress = (position.progresso || 0) + 1;
                 if (progress > 100) progress = 0;
                 
-                // Calcular posição EXATA
-                const totalPoints = linha.pontos.length;
-                const posicaoNaRota = (progress / 100) * (totalPoints - 1);
+                // Calcular posição exata baseada no progresso
+                const totalPontos = linha.pontos.length;
+                const posicaoNaRota = (progress / 100) * (totalPontos - 1);
                 const pontoIndex = Math.floor(posicaoNaRota);
                 
-                if (pontoIndex < totalPoints - 1) {
+                if (pontoIndex < totalPontos - 1) {
                     const pontoA = linha.pontos[pontoIndex];
                     const pontoB = linha.pontos[pontoIndex + 1];
                     const quantoEntre = posicaoNaRota - pontoIndex;
                     
-                    // Posição EXATA entre os pontos
-                    const novaLong = pontoA[0] + (pontoB[0] - pontoA[0]) * quantoEntre;
+                    // Interpolar entre os pontos
+                    const novaLng = pontoA[0] + (pontoB[0] - pontoA[0]) * quantoEntre;
                     const novaLat = pontoA[1] + (pontoB[1] - pontoA[1]) * quantoEntre;
                     
-                    // Atualizar APENAS este ônibus
+                    // Calcular velocidade baseada na distância entre pontos
+                    const distancia = calculateDistance(pontoA, pontoB);
+                    const velocidade = distancia > 0 ? (distancia / 1000) * (3600 / (CONFIG.UPDATE_INTERVAL / 1000)) : 0;
+                    
+                    // Atualizar posição
                     window.posicoesTempoReal[busId] = {
-                        ...position,
-                        lng: novaLong,
+                        lng: novaLng,
                         lat: novaLat,
                         progresso: progress,
-                        velocidade: 40,
+                        velocidade_kmh: Math.min(Math.round(velocidade), 60),
                         ultimaAtualizacao: new Date()
                     };
                 }
             }
         }
         
-        // Atualizar APENAS 1 ônibus no mapa
+        // Atualizar posição no mapa
         updateBusPositions([{
             id: "CAT-008",
-            ...window.posicoesTempoReal["CAT-008"]
+            lng: window.posicoesTempoReal["CAT-008"].lng,
+            lat: window.posicoesTempoReal["CAT-008"].lat,
+            progresso: window.posicoesTempoReal["CAT-008"].progresso,
+            velocidade: window.posicoesTempoReal["CAT-008"].velocidade_kmh
         }]);
     }
 }
