@@ -1,130 +1,135 @@
-// Sistema de Rastreamento Catirose - Wheaton Fretados
-// LINHA 8 - APENAS 1 ÔNIBUS - SÃO BERNARDO DO CAMPO
+/* ============================================================
+   DATA.JS - Sistema de Rastreamento de Fretados
+   Empresa: Catirose
+   Cliente: Wheaton Brasil - São Bernardo do Campo
+   Linha: 08 (Circular)
+   ============================================================ */
 
-// Itinerário da Linha 8 em SBC
-const itinerarios = {
-    "linha-08": {
-        nome: "Linha 08 - Industrial/Farina/Baeta Neves/Nova Petrópolis",
-        pontos: [
-            // PONTO INICIAL: Av. São Bernardo x R. dos Vianas, SBC
-            [-46.5590, -23.7015],
-            
-            // ENTRADA - IDA PARA WHEATON
-            [-46.5575, -23.7002], // Rua dos Vianas
-            [-46.5550, -23.6985], // Av. Luiz Pequini
-            [-46.5525, -23.6968], // Rua Helena Secol
-            [-46.5500, -23.6950], // Av. Nelson Mandela
-            [-46.5475, -23.6932], // Av. Luiz Pequini
-            [-46.5450, -23.6915], // Av. Pery Ronchetti
-            [-46.5425, -23.6898], // Rua Maria do Carmo
-            [-46.5400, -23.6880], // Rua dos Vianas
-            [-46.5375, -23.6863], // Rua Itamarati
-            [-46.5350, -23.6845], // Rua Joana Degelo
-            [-46.5325, -23.6828], // Rua Giacinto Tognato
-            [-46.5300, -23.6810], // Rua Celeste Pinchieri
-            [-46.5275, -23.6793], // Rua Amadeu Rossignolo
-            [-46.5250, -23.6775], // Rua dos Vianas
-            [-46.5225, -23.6758], // Av. Princesa Francisca
-            [-46.5200, -23.6740], // Av. Imperador D. Pedro II
-            [-46.5175, -23.6723], // Rua Giácomo Versolato
-            [-46.5150, -23.6705], // Rua Vicente Galafassi
-            [-46.5125, -23.6688], // Rua Paschoal Gastaldo
-            [-46.5100, -23.6670], // Rua Tiradentes
-            [-46.5075, -23.6653], // Rua Américo Brasiliense
-            [-46.5050, -23.6635], // Rua Joaquim Nabuco
-            [-46.5025, -23.6618], // Av. João Firmino
-            [-46.5000, -23.6600], // Av. Álvaro Guimarães
-            
-            // WHEATON BRASIL SBC
-            [-46.4985, -23.6585],
-            
-            // SAÍDA - VOLTA DO WHEATON
-            [-46.5005, -23.6595], // Av. Álvaro Guimarães
-            [-46.5030, -23.6613], // Av. João Firmino
-            [-46.5055, -23.6630], // Rua Frei Gaspar
-            [-46.5080, -23.6648], // Av. Faria Lima
-            [-46.5105, -23.6665], // Av. Rotary
-            [-46.5130, -23.6683], // Rua Tiradentes
-            [-46.5155, -23.6700], // Av. Francisco Prestes Maia
-            [-46.5180, -23.6718], // Rua José Benedetti
-            [-46.5205, -23.6735], // Rua Giácomo Versolato
-            [-46.5230, -23.6753], // Rua Vicente Galafassi
-            [-46.5255, -23.6770], // Av. Wallace Simonsen
-            [-46.5280, -23.6788], // Trav. Beniamino Gigli
-            [-46.5305, -23.6805], // Av. D. Pedro de Alcântara
-            [-46.5330, -23.6823], // Av. Pery Ronchetti
-            [-46.5355, -23.6840], // Rua Érico Verissimo
-            [-46.5380, -23.6858], // Rua dos Vianas
-            [-46.5405, -23.6875], // Rua Itamarati
-            [-46.5430, -23.6893], // Rua Joana Degelo
-            [-46.5455, -23.6910], // Rua Giacinto Tognato
-            [-46.5480, -23.6928], // Rua Reducíno Germano
-            [-46.5505, -23.6945], // Voltando
-            [-46.5530, -23.6963], // Voltando
-            [-46.5555, -23.6980], // Voltando
-            [-46.5580, -23.6998], // Voltando
-            
-            // PONTO FINAL
-            [-46.5595, -23.7010]
-        ],
-        paradas: [
-            { nome: "Ponto Inicial - Av. São Bernardo x R. dos Vianas", coordenadas: [-46.5590, -23.7015], tipo: "partida" },
-            { nome: "Wheaton Brasil SBC", coordenadas: [-46.4985, -23.6585], tipo: "destino" },
-            { nome: "Ponto Final - Rua dos Vianas x Av. São Bernardo", coordenadas: [-46.5595, -23.7010], tipo: "chegada" }
-        ],
-        // Horários reais do PDF
-        horarios: ["05:00", "07:00", "12:55", "21:00"],
-        cidade: "São Bernardo do Campo - SP"
-    }
+/* =========================
+   STATUS DISPONÍVEIS
+   ========================= */
+const statusOptions = {
+  em_rota: {
+    label: "Em rota",
+    color: "#2ecc71"
+  },
+  parado: {
+    label: "Parado",
+    color: "#f1c40f"
+  },
+  fora_de_servico: {
+    label: "Fora de serviço",
+    color: "#e74c3c"
+  }
 };
 
-// FROTA: APENAS 1 ÔNIBUS
+/* =========================
+   ITINERÁRIOS
+   ========================= */
+const itinerarios = {
+  "linha-08": {
+    id: "linha-08",
+    nome: "Linha 08 - Wheaton SBC (Circular)",
+    tipo: "circular",
+    pontos: [
+      /* ===== IDA - ENTRADA ===== */
+      { nome: "Av. São Bernardo x R. dos Vianas", lat: -23.7048, lng: -46.5559 },
+      { nome: "Rua dos Vianas", lat: -23.7054, lng: -46.5538 },
+      { nome: "Av. Luiz Pequini (Assembléia)", lat: -23.7072, lng: -46.5515 },
+      { nome: "Rua Helena Aparecida Secol", lat: -23.7081, lng: -46.5498 },
+      { nome: "Av. Nelson Mandela", lat: -23.7093, lng: -46.5482 },
+      { nome: "Av. Luiz Pequini", lat: -23.7110, lng: -46.5464 },
+      { nome: "Av. Pery Ronchetti", lat: -23.7128, lng: -46.5451 },
+      { nome: "Rua Maria do Carmo da Silva", lat: -23.7141, lng: -46.5460 },
+      { nome: "Rua dos Vianas", lat: -23.7156, lng: -46.5485 },
+      { nome: "Rua Itamarati", lat: -23.7169, lng: -46.5502 },
+      { nome: "Rua Joana Zanólia Degelo", lat: -23.7181, lng: -46.5519 },
+      { nome: "Rua Giacinto Tognato", lat: -23.7194, lng: -46.5534 },
+      { nome: "Rua Celeste Pinchieri", lat: -23.7206, lng: -46.5550 },
+      { nome: "Rua Amadeu Rossignolo", lat: -23.7218, lng: -46.5566 },
+      { nome: "Rua dos Vianas", lat: -23.7229, lng: -46.5583 },
+      { nome: "Av. Princesa Francisca Carolina", lat: -23.7241, lng: -46.5601 },
+      { nome: "Av. Imperador D. Pedro II", lat: -23.7256, lng: -46.5618 },
+      { nome: "Rua Giácomo Versolato", lat: -23.7271, lng: -46.5635 },
+      { nome: "Rua Vicente Galafassi", lat: -23.7285, lng: -46.5650 },
+      { nome: "Rua Paschoal Gastaldo", lat: -23.7299, lng: -46.5666 },
+      { nome: "Rua Tiradentes", lat: -23.7313, lng: -46.5682 },
+      { nome: "Rua Américo Brasiliense", lat: -23.7326, lng: -46.5697 },
+      { nome: "Rua Joaquim Nabuco", lat: -23.7340, lng: -46.5711 },
+      { nome: "Av. João Firmino", lat: -23.7356, lng: -46.5724 },
+      { nome: "Av. Álvaro Guimarães", lat: -23.7372, lng: -46.5738 },
+      { nome: "Wheaton Brasil SBC", lat: -23.7390, lng: -46.5751 },
+
+      /* ===== VOLTA - SAÍDA ===== */
+      { nome: "Av. Álvaro Guimarães", lat: -23.7374, lng: -46.5740 },
+      { nome: "Av. João Firmino", lat: -23.7358, lng: -46.5726 },
+      { nome: "Rua Frei Gaspar", lat: -23.7343, lng: -46.5712 },
+      { nome: "Av. Faria Lima", lat: -23.7328, lng: -46.5696 },
+      { nome: "Av. Rotary", lat: -23.7312, lng: -46.5680 },
+      { nome: "Rua Tiradentes", lat: -23.7298, lng: -46.5664 },
+      { nome: "Av. Francisco Prestes Maia", lat: -23.7283, lng: -46.5648 },
+      { nome: "Rua José Benedetti", lat: -23.7268, lng: -46.5633 },
+      { nome: "Rua Giácomo Versolato", lat: -23.7253, lng: -46.5619 },
+      { nome: "Rua Vicente Galafassi", lat: -23.7239, lng: -46.5604 },
+      { nome: "Av. Wallace Simonsen", lat: -23.7224, lng: -46.5589 },
+      { nome: "Trav. Beniamino Gigli", lat: -23.7210, lng: -46.5574 },
+      { nome: "Av. D. Pedro de Alcântara", lat: -23.7195, lng: -46.5560 },
+      { nome: "Av. Pery Ronchetti", lat: -23.7179, lng: -46.5545 },
+      { nome: "Rua Érico Verissimo", lat: -23.7164, lng: -46.5531 },
+      { nome: "Rua dos Vianas", lat: -23.7149, lng: -46.5517 },
+      { nome: "Rua Itamarati", lat: -23.7134, lng: -46.5503 },
+      { nome: "Rua Joana Zanólia Degelo", lat: -23.7119, lng: -46.5489 },
+      { nome: "Rua Giacinto Tognato", lat: -23.7104, lng: -46.5475 },
+      { nome: "Rua Reducíno Germano da Silva", lat: -23.7089, lng: -46.5462 },
+      { nome: "Rua dos Vianas x Av. São Bernardo", lat: -23.7048, lng: -46.5559 }
+    ]
+  }
+};
+
+/* =========================
+   FROTA
+   ========================= */
 const frota = [
-    {
-        id: "CAT-008",
-        linha: "linha-08",
-        numero: "008",
-        motorista: "Motorista da Linha 08",
-        capacidade: 45,
-        status: "em_rota",
-        modelo: "Mercedes-Benz",
-        ano: 2023,
-        placa: "CAT-8A08",
-        cidade: "SBC"
-    }
+  {
+    id: "CAT-008",
+    numero: "008",
+    linha: "linha-08",
+    status: "em_rota",
+    motorista: "Motorista Padrão",
+    placa: "EBC-8008"
+  }
 ];
 
-// Horários programados
+/* =========================
+   HORÁRIOS
+   ========================= */
 const horarios = {
-    "linha-08": [
-        { saida: "05:00", chegada: "06:20" },
-        { saida: "07:00", chegada: "08:20" },
-        { saida: "12:55", chegada: "14:15" },
-        { saida: "21:00", chegada: "22:20" }
-    ]
-};
-
-// Status
-const statusOptions = {
-    "em_rota": { text: "Em Rota", color: "#00A86B", class: "active" }
-};
-
-// Dados simulados: APENAS 1 ÔNIBUS
-let posicoesTempoReal = {
-    "CAT-008": { 
-        lat: -23.6968, // Começa na Rua Helena Secol
-        lng: -46.5525,
-        velocidade: 40,
-        progresso: 20,
-        ultimaAtualizacao: new Date()
+  "linha-08": {
+    pontoInicial: ["05:00", "07:00", "12:55", "21:00"],
+    wheaton: {
+      todosOsDias: ["06:20", "14:20", "22:20"],
+      segundaASexta: ["17:15"]
     }
+  }
 };
 
-// Exportar dados
-if (typeof window !== 'undefined') {
-    window.itinerarios = itinerarios;
-    window.frota = frota;
-    window.horarios = horarios;
-    window.statusOptions = statusOptions;
-    window.posicoesTempoReal = posicoesTempoReal;
-}
+/* =========================
+   POSIÇÃO EM TEMPO REAL
+   ========================= */
+const posicoesTempoReal = {
+  "CAT-008": {
+    lat: -23.7128,
+    lng: -46.5451,
+    velocidade_kmh: 38,
+    ultimaAtualizacao: new Date().toISOString()
+  }
+};
+
+/* =========================
+   EXPORTAÇÃO GLOBAL
+   ========================= */
+window.statusOptions = statusOptions;
+window.itinerarios = itinerarios;
+window.frota = frota;
+window.horarios = horarios;
+window.posicoesTempoReal = posicoesTempoReal;
