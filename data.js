@@ -141,10 +141,72 @@ const itinerarios = {
             "05:05", "05:35", "06:05", "06:35", "07:05", "07:35",
             "13:05", "13:35", "14:05", "14:35", "15:05", "15:35",
             "21:05", "21:35", "22:05", "22:35"
+},
+    "linha-02": {
+        nome: "Linha 02 - Industrial",
+        pontos: [
+            [-45.9200, -23.1850],
+            [-45.9185, -23.1862],
+            [-45.9170, -23.1874],
+            [-45.9155, -23.1886],
+            [-45.9140, -23.1898],
+            [-45.9125, -23.1910],
+            [-45.9110, -23.1922],
+            [-45.9095, -23.1934],
+            [-45.9080, -23.1946],
+            [-45.9065, -23.1958],
+            [-45.9050, -23.1970],
+            [-45.9035, -23.1982]
         ],
-        distancia: "8 km",
-        diasOperacao: "2ª a Domingo"
+        paradas: [
+            { nome: "Terminal Norte", coordenadas: [-45.9200, -23.1850] },
+            { nome: "Rua Industrial", coordenadas: [-45.9185, -23.1862] },
+            { nome: "Fábrica Textil", coordenadas: [-45.9170, -23.1874] },
+            { nome: "Distrito Industrial", coordenadas: [-45.9155, -23.1886] },
+            { nome: "Armazéns Gerais", coordenadas: [-45.9140, -23.1898] },
+            { nome: "Posto Combustível", coordenadas: [-45.9125, -23.1910] },
+            { nome: "Restaurante", coordenadas: [-45.9110, -23.1922] },
+            { nome: "Escola Técnica", coordenadas: [-45.9095, -23.1934] },
+            { nome: "Parque Tecnológico", coordenadas: [-45.9080, -23.1946] },
+            { nome: "Wheaton Brasil", coordenadas: [-45.9065, -23.1958] },
+            { nome: "Condomínio Industrial", coordenadas: [-45.9050, -23.1970] },
+            { nome: "Terminal Sul", coordenadas: [-45.9035, -23.1982] }
+        ],
+        horarios: ["05:15", "05:45", "06:15", "06:45", "07:15", "07:45", "13:15", "13:45", "14:15", "14:45", "15:15", "15:45", "16:15", "16:45", "17:15", "17:45"]
+    },
+    "linha-03": {
+        nome: "Linha 03 - Centro",
+        pontos: [
+            [-45.8950, -23.1800],
+            [-45.8965, -23.1812],
+            [-45.8980, -23.1824],
+            [-45.8995, -23.1836],
+            [-45.9010, -23.1848],
+            [-45.9025, -23.1860],
+            [-45.9040, -23.1872],
+            [-45.9055, -23.1884],
+            [-45.9070, -23.1896],
+            [-45.9085, -23.1908],
+            [-45.9100, -23.1920],
+            [-45.9115, -23.1932]
+        ],
+        paradas: [
+            { nome: "Terminal Oeste", coordenadas: [-45.8950, -23.1800] },
+            { nome: "Praça da Matriz", coordenadas: [-45.8965, -23.1812] },
+            { nome: "Catedral", coordenadas: [-45.8980, -23.1824] },
+            { nome: "Prefeitura", coordenadas: [-45.8995, -23.1836] },
+            { nome: "Fórum", coordenadas: [-45.9010, -23.1848] },
+            { nome: "Teatro Municipal", coordenadas: [-45.9025, -23.1860] },
+            { nome: "Biblioteca", coordenadas: [-45.9040, -23.1872] },
+            { nome: "Museu", coordenadas: [-45.9055, -23.1884] },
+            { nome: "Shopping Downtown", coordenadas: [-45.9070, -23.1896] },
+            { nome: "Wheaton Brasil", coordenadas: [-45.9085, -23.1908] },
+            { nome: "Hospital Santa Casa", coordenadas: [-45.9100, -23.1920] },
+            { nome: "Terminal Leste", coordenadas: [-45.9115, -23.1932] }
+        ],
+        horarios: ["05:25", "05:55", "06:25", "06:55", "07:25", "07:55", "13:25", "13:55", "14:25", "14:55", "15:25", "15:55", "16:25", "16:55", "17:25", "17:55"]
     }
+}; 
 };
 
 // Frota de ônibus
