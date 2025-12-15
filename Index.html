@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catirose - Rastreamento de Fretados Wheaton</title>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-bus"></i>
+                        <div class="logo-text">
+                            <h1>Catirose</h1>
+                            <p class="subtitle">Fretados Wheaton - Rastreamento em Tempo Real</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="status-indicators">
+                    <div class="status-item" id="user-location-status">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Localização: <span class="status-text">Obtendo...</span></span>
+                    </div>
+                    <div class="status-item" id="connection-status">
+                        <i class="fas fa-wifi"></i>
+                        <span>Conexão: <span class="status-text">Conectando...</span></span>
+                    </div>
+                    <div class="status-item" id="last-update">
+                        <i class="far fa-clock"></i>
+                        <span>Última atualização: <span id="update-time">--:--</span></span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" id="center-user-btn">
+                    <i class="fas fa-location-arrow"></i> Minha Localização
+                </button>
+                
+                <!-- Menu Hambúrguer para mobile -->
+                <button class="hamburger-menu" id="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Mapa -->
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button class="map-btn" id="zoom-in"><i class="fas fa-plus"></i></button>
+                    <button class="map-btn" id="zoom-out"><i class="fas fa-minus"></i></button>
+                    <button class="map-btn" id="fit-bounds"><i class="fas fa-expand-alt"></i></button>
+                </div>
+                <div class="map-legend">
+                    <h4>Legenda</h4>
+                    <div class="legend-item">
+                        <div class="legend-color user"></div>
+                        <span>Sua localização</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color bus"></div>
+                        <span>Ônibus ativo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color nearest"></div>
+                        <span>Mais próximo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color route-completed"></div>
+                        <span>Trecho percorrido</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color route-remaining"></div>
+                        <span>Trecho restante</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar/Painel -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2>Painel de Controle</h2>
+                    <button class="close-sidebar" id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="nearest">
+                            <i class="fas fa-star"></i> Mais Próximo
+                        </button>
+                        <button class="tab-btn" data-tab="all-buses">
+                            <i class="fas fa-bus"></i> Todos os Fretados
+                        </button>
+                        <button class="tab-btn" data-tab="schedules">
+                            <i class="fas fa-clock"></i> Horários
+                        </button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- Aba Mais Próximo -->
+                        <div class="tab-pane active" id="nearest-tab">
+                            <div class="card nearest-bus-card">
+                                <h3><i class="fas fa-bus"></i> Fretado Mais Próximo</h3>
+                                <div class="loading" id="nearest-loading">
+                                    <div class="loading-spinner"></div>
+                                    <p>Calculando ônibus mais próximo...</p>
+                                </div>
+                                <div id="nearest-bus-info" class="hidden">
+                                    <div class="bus-header">
+                                        <span class="bus-number" id="nearest-bus-number">--</span>
+                                        <span class="bus-status active" id="nearest-bus-status">Em Rota</span>
+                                    </div>
+                                    <div class="bus-info">
+                                        <p><strong>Linha:</strong> <span id="nearest-bus-line">--</span></p>
+                                        <p><strong>Motorista:</strong> <span id="nearest-bus-driver">--</span></p>
+                                        <p><strong>Distância:</strong> <span id="nearest-bus-distance">--</span></p>
+                                        <p><strong>Tempo estimado:</strong> <span id="nearest-bus-eta">--</span></p>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-label">
+                                            <span>Progresso da rota</span>
+                                            <span id="nearest-bus-progress">0%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" id="nearest-bus-progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-actions">
+                                        <button class="btn btn-secondary" id="center-nearest-btn">
+                                            <i class="fas fa-crosshairs"></i> Centralizar
+                                        </button>
+                                        <button class="btn btn-primary" id="view-nearest-route">
+                                            <i class="fas fa-route"></i> Ver Rota Completa
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card user-location-card">
+                                <h3><i class="fas fa-map-marker-alt"></i> Sua Localização</h3>
+                                <div id="user-location-info">
+                                    <p><strong>Coordenadas:</strong> <span id="user-coordinates">--</span></p>
+                                    <p><strong>Precisão:</strong> <span id="location-accuracy">--</span></p>
+                                    <p><strong>Última atualização:</strong> <span id="location-update">--</span></p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn btn-secondary" id="refresh-location">
+                                        <i class="fas fa-sync-alt"></i> Atualizar Localização
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Aba Todos os Fretados -->
+                        <div class="tab-pane" id="all-buses-tab">
+                            <div class="search-filter">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="bus-search" placeholder="Buscar por número ou linha...">
+                                </div>
+                                <select id="line-filter">
+                                    <option value="all">Todas as linhas</option>
+                                    <option value="linha-01">Linha 01 - Wheaton</option>
+                                    <option value="linha-02">Linha 02 - Industrial</option>
+                                    <option value="linha-03">Linha 03 - Centro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="buses-list" id="buses-list">
+                                <div class="loading">
+                                    <div class="loading-spinner"></div>
+                                    <p>Carregando frota...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Aba Horários -->
+                        <div class="tab-pane" id="schedules-tab">
+                            <div class="line-selector">
+                                <label for="schedule-line">Selecione a linha:</label>
+                                <select id="schedule-line">
+                                    <option value="linha-01">Linha 01 - Wheaton</option>
+                                    <option value="linha-02">Linha 02 - Industrial</option>
+                                    <option value="linha-03">Linha 03 - Centro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="schedule-table-container">
+                                <h4>Horários Programados</h4>
+                                <table class="schedule-table" id="schedule-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Saída</th>
+                                            <th>Chegada</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Será preenchido por JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="itinerary-container">
+                                <h4>Itinerário Completo</h4>
+                                <div class="itinerary-list" id="itinerary-list">
+                                    <!-- Será preenchido por JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+
+        <!-- Modal de Detalhes do Ônibus -->
+        <div class="modal-overlay hidden" id="bus-details-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Detalhes do Fretado</h3>
+                    <button class="close-modal" id="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="loading" id="modal-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Carregando detalhes...</p>
+                    </div>
+                    <div id="modal-content" class="hidden">
+                        <!-- Conteúdo será preenchido por JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
