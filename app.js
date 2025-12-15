@@ -3,7 +3,7 @@
 
 // Configurações globais
 const CONFIG = {
-    MAPBOX_TOKEN: 'pk.eyJ1IjoibGVhbmRyb21vdXJhIiwiYSI6ImNtajZqcnRxZjI0b2kzcHB6cHl3aHY1aW0ifQ.d1nd9g2iLxW4n2H0T8tOrw', // Token público do Mapbox (substituir por token próprio em produção)
+    MAPBOX_TOKEN: 'sk.eyJ1IjoibGVhbmRyb21vdXJhIiwiYSI6ImNtajZseWpwcTJicXozY29qNTh5cTdxbngifQ.u8H-dXOIVYstsGxTDWzDhw', // Token público do Mapbox (substituir por token próprio em produção)
     MAP_STYLE: 'mapbox://styles/mapbox/streets-v11',
     INITIAL_ZOOM: 13,
     UPDATE_INTERVAL: 5000, // 5 segundos
