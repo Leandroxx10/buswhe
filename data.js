@@ -1,361 +1,242 @@
-// Dados estáticos do sistema de rastreamento Catirose - Wheaton
+// Sistema de Rastreamento Catirose - Wheaton Fretados
+// DADOS SOMENTE DA LINHA 8
 
-// Itinerários completos das linhas (coordenadas reais de São José dos Campos)
+// Itinerário completo da Linha 8 (coordenadas aproximadas de São José dos Campos)
 const itinerarios = {
-    "linha-01": {
-        nome: "Linha 01 - Wheaton (Vila São Pedro)",
+    "linha-08": {
+        nome: "Linha 08 - Industrial/Farina/Baeta Neves/Nova Petrópolis",
         pontos: [
-            // PONTO INICIAL - AV. LUIZ PEQUINI, 688
-            [-45.8673, -23.2112], // Av. Luiz Pequini, 688
+            // PONTO INICIAL: Av. São Bernardo x R. dos Vianas
+            [-45.8452, -23.2251],
             
-            // Saída: Av. Álvaro Guimarães
-            [-45.8695, -23.2098],
-            
-            // Av. Dom Pedro de Alcântara
-            [-45.8721, -23.2079],
-            
-            // Rua Jardim
-            [-45.8745, -23.2055],
-            
+            // === ENTRADA - IDA PARA WHEATON ===
+            // Rua dos Vianas
+            [-45.8470, -23.2235],
+            // Av. Luiz Pequini (Assembléia)
+            [-45.8495, -23.2210],
+            // Rua Helena Aparecida Secol
+            [-45.8520, -23.2185],
+            // Av. Nelson Mandela
+            [-45.8545, -23.2160],
+            // Av. Luiz Pequini
+            [-45.8570, -23.2135],
+            // Av. Pery Ronchetti
+            [-45.8595, -23.2110],
+            // Rua Maria do Carmo da Silva
+            [-45.8620, -23.2085],
+            // Rua dos Vianas (trecho)
+            [-45.8645, -23.2060],
+            // Rua Itamarati
+            [-45.8670, -23.2035],
+            // Rua Joana Zanólia Degelo
+            [-45.8695, -23.2010],
+            // Rua Giacinto Tognato
+            [-45.8720, -23.1985],
+            // Rua Celeste Pinchieri
+            [-45.8745, -23.1960],
+            // Rua Amadeu Rossignolo
+            [-45.8770, -23.1935],
+            // Rua dos Vianas
+            [-45.8795, -23.1910],
+            // Av. Princesa Francisca Carolina
+            [-45.8820, -23.1885],
+            // Av. Imperador D. Pedro II
+            [-45.8845, -23.1860],
+            // Rua Giácomo Versolato
+            [-45.8870, -23.1835],
+            // Rua Vicente Galafassi
+            [-45.8895, -23.1810],
+            // Rua Paschoal Gastaldo
+            [-45.8920, -23.1785],
             // Rua Tiradentes
-            [-45.8772, -23.2028],
-            
-            // Av. Frei Gaspar
-            [-45.8798, -23.2001],
-            
-            // Av. Brigadeiro Faria Lima
-            [-45.8825, -23.1973],
-            
-            // Acesso ao viaduto para Av. Rotary
-            [-45.8852, -23.1945],
-            
-            // Rodovia Anchieta (trecho próximo)
-            [-45.8880, -23.1917],
-            
-            // Retorno: Av. Rotary
-            [-45.8855, -23.1940],
-            
+            [-45.8945, -23.1760],
+            // Rua Américo Brasiliense
+            [-45.8970, -23.1735],
+            // Rua Joaquim Nabuco
+            [-45.8995, -23.1710],
             // Av. João Firmino
-            [-45.8828, -23.1967],
+            [-45.9020, -23.1685],
+            // Av. Álvaro Guimarães
+            [-45.9045, -23.1660],
             
-            // Rua Tiradentes (retorno)
-            [-45.8801, -23.1994],
+            // WHEATON (Destino - entrada)
+            [-45.9060, -23.1645],
             
-            // Rua Jardim (retorno)
-            [-45.8774, -23.2021],
-            
-            // Av. Dom Pedro de Alcântara (retorno)
-            [-45.8747, -23.2048],
-            
-            // WHEATON BRASIL (Destino)
-            [-45.8719, -23.2076], // Wheaton Brasil
-            
-            // Retorno final: Av. Luiz Pequini, 688
-            [-45.8692, -23.2103],
-            [-45.8675, -23.2115]
+            // === SAÍDA - VOLTA DO WHEATON ===
+            // Av. Álvaro Guimarães (saída)
+            [-45.9040, -23.1655],
+            // Av. João Firmino
+            [-45.9015, -23.1680],
+            // Rua Frei Gaspar
+            [-45.8990, -23.1705],
+            // Av. Faria Lima
+            [-45.8965, -23.1730],
+            // Av. Rotary
+            [-45.8940, -23.1755],
+            // Rua Tiradentes
+            [-45.8915, -23.1780],
+            // Av. Francisco Prestes Maia
+            [-45.8890, -23.1805],
+            // Rua José Benedetti
+            [-45.8865, -23.1830],
+            // Rua Giácomo Versolato
+            [-45.8840, -23.1855],
+            // Rua Vicente Galafassi
+            [-45.8815, -23.1880],
+            // Av. Wallace Simonsen
+            [-45.8790, -23.1905],
+            // Trav. Beniamino Gigli
+            [-45.8765, -23.1930],
+            // Av. D. Pedro de Alcântara
+            [-45.8740, -23.1955],
+            // Av. Pery Ronchetti
+            [-45.8715, -23.1980],
+            // Rua Érico Verissimo
+            [-45.8690, -23.2005],
+            // Rua dos Vianas
+            [-45.8665, -23.2030],
+            // Rua Itamarati
+            [-45.8640, -23.2055],
+            // Rua Joana Zanólia Degelo
+            [-45.8615, -23.2080],
+            // Rua Giacinto Tognato
+            [-45.8590, -23.2105],
+            // Rua Reducíno Germano da Silva
+            [-45.8565, -23.2130],
+            // Rua dos Vianas x Av. São Bernardo (FINAL)
+            [-45.8540, -23.2155],
+            [-45.8515, -23.2180],
+            [-45.8490, -23.2205],
+            [-45.8465, -23.2230],
+            // PONTO FINAL: Rua dos Vianas x Av. São Bernardo
+            [-45.8448, -23.2248]
         ],
         paradas: [
-            { 
-                nome: "Ponto Inicial - Av. Luiz Pequini, 688", 
-                coordenadas: [-45.8673, -23.2112],
-                tipo: "partida"
-            },
-            { 
-                nome: "Av. Álvaro Guimarães", 
-                coordenadas: [-45.8695, -23.2098],
-                tipo: "parada"
-            },
-            { 
-                nome: "Av. Dom Pedro de Alcântara", 
-                coordenadas: [-45.8721, -23.2079],
-                tipo: "parada"
-            },
-            { 
-                nome: "Rua Jardim", 
-                coordenadas: [-45.8745, -23.2055],
-                tipo: "parada"
-            },
-            { 
-                nome: "Rua Tiradentes", 
-                coordenadas: [-45.8772, -23.2028],
-                tipo: "parada"
-            },
-            { 
-                nome: "Av. Frei Gaspar", 
-                coordenadas: [-45.8798, -23.2001],
-                tipo: "parada"
-            },
-            { 
-                nome: "Av. Brigadeiro Faria Lima", 
-                coordenadas: [-45.8825, -23.1973],
-                tipo: "parada"
-            },
-            { 
-                nome: "Acesso viaduto Av. Rotary", 
-                coordenadas: [-45.8852, -23.1945],
-                tipo: "parada"
-            },
-            { 
-                nome: "Rodovia Anchieta", 
-                coordenadas: [-45.8880, -23.1917],
-                tipo: "referencia"
-            },
-            { 
-                nome: "Av. Rotary", 
-                coordenadas: [-45.8855, -23.1940],
-                tipo: "parada"
-            },
-            { 
-                nome: "Av. João Firmino", 
-                coordenadas: [-45.8828, -23.1967],
-                tipo: "parada"
-            },
-            { 
-                nome: "Rua Tiradentes (retorno)", 
-                coordenadas: [-45.8801, -23.1994],
-                tipo: "parada"
-            },
-            { 
-                nome: "Rua Jardim (retorno)", 
-                coordenadas: [-45.8774, -23.2021],
-                tipo: "parada"
-            },
-            { 
-                nome: "Av. Dom Pedro de Alcântara (retorno)", 
-                coordenadas: [-45.8747, -23.2048],
-                tipo: "parada"
-            },
-            { 
-                nome: "Wheaton Brasil", 
-                coordenadas: [-45.8719, -23.2076],
-                tipo: "destino"
-            },
-            { 
-                nome: "Ponto Final - Av. Luiz Pequini, 688", 
-                coordenadas: [-45.8675, -23.2115],
-                tipo: "chegada"
+            // IDA
+            { nome: "Ponto Inicial - Av. São Bernardo x R. dos Vianas", coordenadas: [-45.8452, -23.2251], tipo: "partida" },
+            { nome: "Rua dos Vianas", coordenadas: [-45.8470, -23.2235], tipo: "parada" },
+            { nome: "Av. Luiz Pequini (Assembléia)", coordenadas: [-45.8495, -23.2210], tipo: "parada" },
+            { nome: "Rua Helena Aparecida Secol", coordenadas: [-45.8520, -23.2185], tipo: "parada" },
+            { nome: "Av. Nelson Mandela", coordenadas: [-45.8545, -23.2160], tipo: "parada" },
+            { nome: "Av. Luiz Pequini", coordenadas: [-45.8570, -23.2135], tipo: "parada" },
+            { nome: "Av. Pery Ronchetti", coordenadas: [-45.8595, -23.2110], tipo: "parada" },
+            { nome: "Rua Maria do Carmo da Silva", coordenadas: [-45.8620, -23.2085], tipo: "parada" },
+            { nome: "Rua Itamarati", coordenadas: [-45.8670, -23.2035], tipo: "parada" },
+            { nome: "Rua Joana Zanólia Degelo", coordenadas: [-45.8695, -23.2010], tipo: "parada" },
+            { nome: "Rua Giacinto Tognato", coordenadas: [-45.8720, -23.1985], tipo: "parada" },
+            { nome: "Rua Celeste Pinchieri", coordenadas: [-45.8745, -23.1960], tipo: "parada" },
+            { nome: "Rua Amadeu Rossignolo", coordenadas: [-45.8770, -23.1935], tipo: "parada" },
+            { nome: "Av. Princesa Francisca Carolina", coordenadas: [-45.8820, -23.1885], tipo: "parada" },
+            { nome: "Av. Imperador D. Pedro II", coordenadas: [-45.8845, -23.1860], tipo: "parada" },
+            { nome: "Rua Giácomo Versolato", coordenadas: [-45.8870, -23.1835], tipo: "parada" },
+            { nome: "Rua Vicente Galafassi", coordenadas: [-45.8895, -23.1810], tipo: "parada" },
+            { nome: "Rua Paschoal Gastaldo", coordenadas: [-45.8920, -23.1785], tipo: "parada" },
+            { nome: "Rua Tiradentes", coordenadas: [-45.8945, -23.1760], tipo: "parada" },
+            { nome: "Rua Américo Brasiliense", coordenadas: [-45.8970, -23.1735], tipo: "parada" },
+            { nome: "Rua Joaquim Nabuco", coordenadas: [-45.8995, -23.1710], tipo: "parada" },
+            { nome: "Av. João Firmino", coordenadas: [-45.9020, -23.1685], tipo: "parada" },
+            { nome: "Av. Álvaro Guimarães", coordenadas: [-45.9045, -23.1660], tipo: "parada" },
+            
+            // WHEATON (ponto de destino/partida)
+            { nome: "Wheaton Brasil (Entrada/Portão)", coordenadas: [-45.9060, -23.1645], tipo: "destino" },
+            
+            // VOLTA
+            { nome: "Av. João Firmino (volta)", coordenadas: [-45.9015, -23.1680], tipo: "parada" },
+            { nome: "Rua Frei Gaspar", coordenadas: [-45.8990, -23.1705], tipo: "parada" },
+            { nome: "Av. Faria Lima", coordenadas: [-45.8965, -23.1730], tipo: "parada" },
+            { nome: "Av. Rotary", coordenadas: [-45.8940, -23.1755], tipo: "parada" },
+            { nome: "Av. Francisco Prestes Maia", coordenadas: [-45.8890, -23.1805], tipo: "parada" },
+            { nome: "Rua José Benedetti", coordenadas: [-45.8865, -23.1830], tipo: "parada" },
+            { nome: "Av. Wallace Simonsen", coordenadas: [-45.8790, -23.1905], tipo: "parada" },
+            { nome: "Trav. Beniamino Gigli", coordenadas: [-45.8765, -23.1930], tipo: "parada" },
+            { nome: "Av. D. Pedro de Alcântara", coordenadas: [-45.8740, -23.1955], tipo: "parada" },
+            { nome: "Rua Érico Verissimo", coordenadas: [-45.8690, -23.2005], tipo: "parada" },
+            { nome: "Rua Reducíno Germano da Silva", coordenadas: [-45.8565, -23.2130], tipo: "parada" },
+            { nome: "Ponto Final - Rua dos Vianas x Av. São Bernardo", coordenadas: [-45.8448, -23.2248], tipo: "chegada" }
+        ],
+        // Horários conforme especificado
+        horarios: {
+            saidaPontoInicial: ["05:00", "07:00", "12:55", "21:00"], // Todos os dias
+            saidaWheaton: {
+                segunda_a_sexta: ["06:20", "14:20", "17:15", "22:20"],
+                sabado_domingo_feriado: ["06:20", "14:20", "22:20"] // Sem 17:15
             }
-        ],
-        // Horários reais do PDF: 05:05, 13:05, 21:05
-        horarios: [
-            "05:05", "05:35", "06:05", "06:35", "07:05", "07:35",
-            "13:05", "13:35", "14:05", "14:35", "15:05", "15:35",
-            "21:05", "21:35", "22:05", "22:35"
-},
-    "linha-02": {
-        nome: "Linha 02 - Industrial",
-        pontos: [
-            [-45.9200, -23.1850],
-            [-45.9185, -23.1862],
-            [-45.9170, -23.1874],
-            [-45.9155, -23.1886],
-            [-45.9140, -23.1898],
-            [-45.9125, -23.1910],
-            [-45.9110, -23.1922],
-            [-45.9095, -23.1934],
-            [-45.9080, -23.1946],
-            [-45.9065, -23.1958],
-            [-45.9050, -23.1970],
-            [-45.9035, -23.1982]
-        ],
-        paradas: [
-            { nome: "Terminal Norte", coordenadas: [-45.9200, -23.1850] },
-            { nome: "Rua Industrial", coordenadas: [-45.9185, -23.1862] },
-            { nome: "Fábrica Textil", coordenadas: [-45.9170, -23.1874] },
-            { nome: "Distrito Industrial", coordenadas: [-45.9155, -23.1886] },
-            { nome: "Armazéns Gerais", coordenadas: [-45.9140, -23.1898] },
-            { nome: "Posto Combustível", coordenadas: [-45.9125, -23.1910] },
-            { nome: "Restaurante", coordenadas: [-45.9110, -23.1922] },
-            { nome: "Escola Técnica", coordenadas: [-45.9095, -23.1934] },
-            { nome: "Parque Tecnológico", coordenadas: [-45.9080, -23.1946] },
-            { nome: "Wheaton Brasil", coordenadas: [-45.9065, -23.1958] },
-            { nome: "Condomínio Industrial", coordenadas: [-45.9050, -23.1970] },
-            { nome: "Terminal Sul", coordenadas: [-45.9035, -23.1982] }
-        ],
-        horarios: ["05:15", "05:45", "06:15", "06:45", "07:15", "07:45", "13:15", "13:45", "14:15", "14:45", "15:15", "15:45", "16:15", "16:45", "17:15", "17:45"]
-    },
-    "linha-03": {
-        nome: "Linha 03 - Centro",
-        pontos: [
-            [-45.8950, -23.1800],
-            [-45.8965, -23.1812],
-            [-45.8980, -23.1824],
-            [-45.8995, -23.1836],
-            [-45.9010, -23.1848],
-            [-45.9025, -23.1860],
-            [-45.9040, -23.1872],
-            [-45.9055, -23.1884],
-            [-45.9070, -23.1896],
-            [-45.9085, -23.1908],
-            [-45.9100, -23.1920],
-            [-45.9115, -23.1932]
-        ],
-        paradas: [
-            { nome: "Terminal Oeste", coordenadas: [-45.8950, -23.1800] },
-            { nome: "Praça da Matriz", coordenadas: [-45.8965, -23.1812] },
-            { nome: "Catedral", coordenadas: [-45.8980, -23.1824] },
-            { nome: "Prefeitura", coordenadas: [-45.8995, -23.1836] },
-            { nome: "Fórum", coordenadas: [-45.9010, -23.1848] },
-            { nome: "Teatro Municipal", coordenadas: [-45.9025, -23.1860] },
-            { nome: "Biblioteca", coordenadas: [-45.9040, -23.1872] },
-            { nome: "Museu", coordenadas: [-45.9055, -23.1884] },
-            { nome: "Shopping Downtown", coordenadas: [-45.9070, -23.1896] },
-            { nome: "Wheaton Brasil", coordenadas: [-45.9085, -23.1908] },
-            { nome: "Hospital Santa Casa", coordenadas: [-45.9100, -23.1920] },
-            { nome: "Terminal Leste", coordenadas: [-45.9115, -23.1932] }
-        ],
-        horarios: ["05:25", "05:55", "06:25", "06:55", "07:25", "07:55", "13:25", "13:55", "14:25", "14:55", "15:25", "15:55", "16:25", "16:55", "17:25", "17:55"]
+        },
+        diasOperacao: {
+            geral: "2ª a Domingo (05:00, 12:55, 21:00)",
+            especial: "2ª a 6ª Feira (07:00, 17:15) - Exceto Feriados"
+        },
+        bairros: ["JD. Industrial", "JD. Farina", "B. Baeta Neves", "B. Nova Petrópolis"]
     }
-}; 
 };
 
-// Frota de ônibus
+// Frota SOMENTE da Linha 8
 const frota = [
     {
-        id: "CAT-001",
-        linha: "linha-01",
-        numero: "247",
-        motorista: "João Silva",
+        id: "CAT-008-01",
+        linha: "linha-08",
+        numero: "801",
+        motorista: "Carlos Mendes",
         capacidade: 45,
         status: "em_rota",
         modelo: "Mercedes-Benz OF-1721",
-        ano: 2022,
-        placa: "ABC-1D23"
-    },
-    {
-        id: "CAT-002",
-        linha: "linha-01",
-        numero: "248",
-        motorista: "Maria Santos",
-        capacidade: 45,
-        status: "em_rota",
-        modelo: "Mercedes-Benz OF-1721",
-        ano: 2022,
-        placa: "DEF-2G34"
-    },
-    {
-        id: "CAT-003",
-        linha: "linha-02",
-        numero: "249",
-        motorista: "Pedro Oliveira",
-        capacidade: 45,
-        status: "em_rota",
-        modelo: "Volvo B250",
-        ano: 2021,
-        placa: "GHI-3J45"
-    },
-    {
-        id: "CAT-004",
-        linha: "linha-02",
-        numero: "250",
-        motorista: "Ana Costa",
-        capacidade: 45,
-        status: "em_rota",
-        modelo: "Volvo B250",
-        ano: 2021,
-        placa: "JKL-4M56"
-    },
-    {
-        id: "CAT-005",
-        linha: "linha-03",
-        numero: "251",
-        motorista: "Carlos Pereira",
-        capacidade: 40,
-        status: "em_rota",
-        modelo: "Marcopolo Torino",
         ano: 2023,
-        placa: "MNO-5P67"
+        placa: "CAT8A01",
+        turno: "madrugada", // 05:00
+        horarioPartida: "05:00"
     },
     {
-        id: "CAT-006",
-        linha: "linha-03",
-        numero: "252",
+        id: "CAT-008-02",
+        linha: "linha-08",
+        numero: "802",
+        motorista: "Ana Paula Costa",
+        capacidade: 45,
+        status: "em_rota",
+        modelo: "Volvo B250",
+        ano: 2022,
+        placa: "CAT8B02",
+        turno: "manha", // 07:00 (2ª-6ª)
+        horarioPartida: "07:00"
+    },
+    {
+        id: "CAT-008-03",
+        linha: "linha-08",
+        numero: "803",
+        motorista: "Roberto Santos",
+        capacidade: 45,
+        status: "em_rota",
+        modelo: "Mercedes-Benz OF-1721",
+        ano: 2023,
+        placa: "CAT8C03",
+        turno: "tarde", // 12:55
+        horarioPartida: "12:55"
+    },
+    {
+        id: "CAT-008-04",
+        linha: "linha-08",
+        numero: "804",
         motorista: "Fernanda Lima",
-        capacidade: 40,
+        capacidade: 45,
         status: "em_rota",
-        modelo: "Marcopolo Torino",
-        ano: 2023,
-        placa: "PQR-6S78"
-    },
-    {
-        id: "CAT-007",
-        linha: "linha-01",
-        numero: "253",
-        motorista: "Roberto Alves",
-        capacidade: 45,
-        status: "em_manutencao",
-        modelo: "Mercedes-Benz OF-1721",
-        ano: 2022,
-        placa: "STU-7T89"
-    },
-    {
-        id: "CAT-008",
-        linha: "linha-02",
-        numero: "254",
-        motorista: "Juliana Martins",
-        capacidade: 45,
-        status: "disponivel",
         modelo: "Volvo B250",
-        ano: 2021,
-        placa: "VWX-8U90"
+        ano: 2022,
+        placa: "CAT8D04",
+        turno: "noite", // 21:00
+        horarioPartida: "21:00"
     }
 ];
 
-// Horários programados
+// Horários programados (estrutura simplificada para o sistema)
 const horarios = {
-    "linha-01": [
-        { saida: "05:05", chegada: "06:10", periodo: "manha" },
-        { saida: "05:35", chegada: "06:40", periodo: "manha" },
-        { saida: "06:05", chegada: "07:10", periodo: "manha" },
-        { saida: "06:35", chegada: "07:40", periodo: "manha" },
-        { saida: "07:05", chegada: "08:10", periodo: "manha" },
-        { saida: "07:35", chegada: "08:40", periodo: "manha" },
-        { saida: "13:05", chegada: "14:10", periodo: "tarde" },
-        { saida: "13:35", chegada: "14:40", periodo: "tarde" },
-        { saida: "14:05", chegada: "15:10", periodo: "tarde" },
-        { saida: "14:35", chegada: "15:40", periodo: "tarde" },
-        { saida: "15:05", chegada: "16:10", periodo: "tarde" },
-        { saida: "15:35", chegada: "16:40", periodo: "tarde" },
-        { saida: "16:05", chegada: "17:10", periodo: "tarde" },
-        { saida: "16:35", chegada: "17:40", periodo: "tarde" },
-        { saida: "17:05", chegada: "18:10", periodo: "tarde" },
-        { saida: "17:35", chegada: "18:40", periodo: "tarde" }
-    ],
-    "linha-02": [
-        { saida: "05:15", chegada: "06:20", periodo: "manha" },
-        { saida: "05:45", chegada: "06:50", periodo: "manha" },
-        { saida: "06:15", chegada: "07:20", periodo: "manha" },
-        { saida: "06:45", chegada: "07:50", periodo: "manha" },
-        { saida: "07:15", chegada: "08:20", periodo: "manha" },
-        { saida: "07:45", chegada: "08:50", periodo: "manha" },
-        { saida: "13:15", chegada: "14:20", periodo: "tarde" },
-        { saida: "13:45", chegada: "14:50", periodo: "tarde" },
-        { saida: "14:15", chegada: "15:20", periodo: "tarde" },
-        { saida: "14:45", chegada: "15:50", periodo: "tarde" },
-        { saida: "15:15", chegada: "16:20", periodo: "tarde" },
-        { saida: "15:45", chegada: "16:50", periodo: "tarde" },
-        { saida: "16:15", chegada: "17:20", periodo: "tarde" },
-        { saida: "16:45", chegada: "17:50", periodo: "tarde" },
-        { saida: "17:15", chegada: "18:20", periodo: "tarde" },
-        { saida: "17:45", chegada: "18:50", periodo: "tarde" }
-    ],
-    "linha-03": [
-        { saida: "05:25", chegada: "06:30", periodo: "manha" },
-        { saida: "05:55", chegada: "07:00", periodo: "manha" },
-        { saida: "06:25", chegada: "07:30", periodo: "manha" },
-        { saida: "06:55", chegada: "08:00", periodo: "manha" },
-        { saida: "07:25", chegada: "08:30", periodo: "manha" },
-        { saida: "07:55", chegada: "09:00", periodo: "manha" },
-        { saida: "13:25", chegada: "14:30", periodo: "tarde" },
-        { saida: "13:55", chegada: "15:00", periodo: "tarde" },
-        { saida: "14:25", chegada: "15:30", periodo: "tarde" },
-        { saida: "14:55", chegada: "16:00", periodo: "tarde" },
-        { saida: "15:25", chegada: "16:30", periodo: "tarde" },
-        { saida: "15:55", chegada: "17:00", periodo: "tarde" },
-        { saida: "16:25", chegada: "17:30", periodo: "tarde" },
-        { saida: "16:55", chegada: "18:00", periodo: "tarde" },
-        { saida: "17:25", chegada: "18:30", periodo: "tarde" },
-        { saida: "17:55", chegada: "19:00", periodo: "tarde" }
+    "linha-08": [
+        { saida: "05:00", chegada: "06:20", tipo: "ponto_inicial", dias: "todos" },
+        { saida: "06:20", chegada: "07:40", tipo: "wheaton", dias: "todos" },
+        { saida: "07:00", chegada: "08:20", tipo: "ponto_inicial", dias: "segunda_sexta" },
+        { saida: "12:55", chegada: "14:15", tipo: "ponto_inicial", dias: "todos" },
+        { saida: "14:20", chegada: "15:40", tipo: "wheaton", dias: "todos" },
+        { saida: "17:15", chegada: "18:35", tipo: "wheaton", dias: "segunda_sexta" },
+        { saida: "21:00", chegada: "22:20", tipo: "ponto_inicial", dias: "todos" },
+        { saida: "22:20", chegada: "23:40", tipo: "wheaton", dias: "todos" }
     ]
 };
 
@@ -367,55 +248,43 @@ const statusOptions = {
     "inativo": { text: "Inativo", color: "#6c757d", class: "inactive" }
 };
 
-// Dados simulados de posições em tempo real (serão substituídos por WebSocket)
+// Dados simulados de posições em tempo real - SOMENTE LINHA 8
 let posicoesTempoReal = {
-    "CAT-001": { 
-        lat: -23.1915, 
-        lng: -45.9090,
-        velocidade: 45,
-        direcao: 120,
-        progresso: 35,
-        ultimaAtualizacao: new Date()
-    },
-    "CAT-002": { 
-        lat: -23.1940, 
-        lng: -45.9055,
-        velocidade: 52,
-        direcao: 85,
-        progresso: 60,
-        ultimaAtualizacao: new Date()
-    },
-    "CAT-003": { 
-        lat: -23.1870, 
-        lng: -45.9175,
-        velocidade: 38,
-        direcao: 200,
-        progresso: 25,
-        ultimaAtualizacao: new Date()
-    },
-    "CAT-004": { 
-        lat: -23.1925, 
-        lng: -45.9110,
-        velocidade: 48,
-        direcao: 150,
-        progresso: 70,
-        ultimaAtualizacao: new Date()
-    },
-    "CAT-005": { 
-        lat: -23.1845, 
-        lng: -45.9015,
+    "CAT-008-01": { 
+        lat: -23.2185, 
+        lng: -45.8520, // Rua Helena Aparecida Secol
         velocidade: 42,
-        direcao: 300,
-        progresso: 40,
-        ultimaAtualizacao: new Date()
+        direcao: 120,
+        progresso: 15,
+        ultimaAtualizacao: new Date(),
+        destino: "Wheaton"
     },
-    "CAT-006": { 
-        lat: -23.1860, 
-        lng: -45.9040,
-        velocidade: 55,
-        direcao: 20,
-        progresso: 55,
-        ultimaAtualizacao: new Date()
+    "CAT-008-02": { 
+        lat: -23.1885, 
+        lng: -45.8820, // Av. Princesa Francisca Carolina
+        velocidade: 38,
+        direcao: 85,
+        progresso: 45,
+        ultimaAtualizacao: new Date(),
+        destino: "Wheaton"
+    },
+    "CAT-008-03": { 
+        lat: -23.1685, 
+        lng: -45.9020, // Av. João Firmino (perto da Wheaton)
+        velocidade: 35,
+        direcao: 200,
+        progresso: 75,
+        ultimaAtualizacao: new Date(),
+        destino: "Wheaton"
+    },
+    "CAT-008-04": { 
+        lat: -23.1880, 
+        lng: -45.8815, // Rua Vicente Galafassi (volta)
+        velocidade: 48,
+        direcao: 300,
+        progresso: 60,
+        ultimaAtualizacao: new Date(),
+        destino: "Ponto Final"
     }
 };
 
