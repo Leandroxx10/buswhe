@@ -1377,62 +1377,64 @@ function fitMapToBuses() {
     });
 }
 
-// Atualizar dados em tempo real (simulado)
+// Atualizar dados em tempo real (simulado) - VERSÃO CORRIGIDA
 function updateRealTimeData() {
     if (CONFIG.USE_MOCK_DATA) {
-        // Simular atualizações de posição com movimento mais realista
         Object.keys(window.posicoesTempoReal).forEach(busId => {
             const bus = AppState.buses[busId];
+            // Só move ônibus que estão em rota
             if (!bus || bus.status !== 'em_rota') return;
-            
+
             const position = window.posicoesTempoReal[busId];
             const linha = itinerarios[bus.linha];
-            
+
             if (linha && linha.pontos && linha.pontos.length > 0) {
-                // Progresso mais lento e suave (1-2% por atualização)
-                let progress = (position.progresso || 0) + (0.5 + Math.random() * 1.5);
-                if (progress > 100) progress = 0;
+                // 1. Calcula o progresso baseado no tempo, não no random
+                const now = Date.now();
+                const startTime = position.startTime || now;
+                const elapsedMinutes = (now - startTime) / (1000 * 60); // Tempo em minutos
                 
-                // Encontrar o ponto exato na rota baseado no progresso
+                // Faz o trajeto completo em ~30 minutos na simulação
+                const simulatedTripDuration = 30;
+                let progress = (elapsedMinutes / simulatedTripDuration) * 100;
+                
+                // Se completou o trajeto, reinicia do início
+                if (progress >= 100) {
+                    progress = 0;
+                    window.posicoesTempoReal[busId].startTime = now;
+                }
+
+                // 2. Encontra o segmento exato da rota com base no progresso
                 const totalPoints = linha.pontos.length;
-                const segmentIndex = Math.floor((progress / 100) * (totalPoints - 1));
-                const segmentProgress = ((progress / 100) * (totalPoints - 1)) - segmentIndex;
-                
-                // Garantir que estamos dentro dos limites
-                const startIndex = Math.min(segmentIndex, totalPoints - 2);
-                const endIndex = startIndex + 1;
-                
-                // Interpolar entre dois pontos da rota
-                const startPoint = linha.pontos[startIndex];
-                const endPoint = linha.pontos[endIndex];
-                
-                // Cálculo de interpolação linear (movimento suave entre pontos)
-                const newLng = startPoint[0] + (endPoint[0] - startPoint[0]) * segmentProgress;
-                const newLat = startPoint[1] + (endPoint[1] - startPoint[1]) * segmentProgress;
-                
-                // Adicionar variação mínima para parecer mais natural
-                const variation = 0.00002; // Aproximadamente 2 metros
-                const finalLng = newLng + (Math.random() - 0.5) * variation;
-                const finalLat = newLat + (Math.random() - 0.5) * variation;
-                
-                // Atualizar posição
-                window.posicoesTempoReal[busId] = {
-                    ...position,
-                    lng: finalLng,
-                    lat: finalLat,
-                    progresso: progress,
-                    velocidade: 35 + Math.random() * 25, // 35-60 km/h
-                    ultimaAtualizacao: new Date()
-                };
-                
-                // Atualizar no estado da aplicação
-                if (AppState.buses[busId]) {
-                    AppState.buses[busId].position = window.posicoesTempoReal[busId];
+                const exactPosition = (progress / 100) * (totalPoints - 1);
+                const pointIndex = Math.floor(exactPosition);
+                const segmentProgress = exactPosition - pointIndex;
+
+                // Garante que não ultrapassa o último ponto
+                if (pointIndex < totalPoints - 1) {
+                    const pointA = linha.pontos[pointIndex];
+                    const pointB = linha.pontos[pointIndex + 1];
+
+                    // 3. INTERPOLAÇÃO LINEAR (a chave do movimento suave)
+                    // Calcula uma posição intermediária entre o ponto A e B
+                    const newLng = pointA[0] + (pointB[0] - pointA[0]) * segmentProgress;
+                    const newLat = pointA[1] + (pointB[1] - pointA[1]) * segmentProgress;
+
+                    // 4. Atualiza a posição do ônibus com a nova coordenada interpolada
+                    window.posicoesTempoReal[busId] = {
+                        ...position,
+                        lng: newLng,
+                        lat: newLat,
+                        progresso: progress,
+                        velocidade: 40, // Velocidade constante para simulação suave
+                        ultimaAtualizacao: new Date(),
+                        startTime: position.startTime || startTime // Mantém o tempo de início
+                    };
                 }
             }
         });
-        
-        // Atualizar UI (mas sem animação muito rápida)
+
+        // Chama a função que atualiza os marcadores no mapa
         updateBusPositions(Object.entries(window.posicoesTempoReal).map(([id, pos]) => ({
             id,
             ...pos
