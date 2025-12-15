@@ -1377,68 +1377,54 @@ function fitMapToBuses() {
     });
 }
 
-// Atualizar dados em tempo real (simulado) - VERSÃO CORRIGIDA
+// Atualizar dados em tempo real - VERSÃO SIMPLES
 function updateRealTimeData() {
     if (CONFIG.USE_MOCK_DATA) {
-        Object.keys(window.posicoesTempoReal).forEach(busId => {
-            const bus = AppState.buses[busId];
-            // Só move ônibus que estão em rota
-            if (!bus || bus.status !== 'em_rota') return;
-
+        // APENAS 1 ÔNIBUS
+        const busId = "CAT-008";
+        const bus = AppState.buses[busId];
+        
+        if (bus && bus.status === 'em_rota') {
             const position = window.posicoesTempoReal[busId];
             const linha = itinerarios[bus.linha];
-
+            
             if (linha && linha.pontos && linha.pontos.length > 0) {
-                // 1. Calcula o progresso baseado no tempo, não no random
-                const now = Date.now();
-                const startTime = position.startTime || now;
-                const elapsedMinutes = (now - startTime) / (1000 * 60); // Tempo em minutos
+                // Andar BEM DEVAGAR na rota
+                let progress = (position.progresso || 0) + 0.5;
+                if (progress > 100) progress = 0;
                 
-                // Faz o trajeto completo em ~30 minutos na simulação
-                const simulatedTripDuration = 30;
-                let progress = (elapsedMinutes / simulatedTripDuration) * 100;
-                
-                // Se completou o trajeto, reinicia do início
-                if (progress >= 100) {
-                    progress = 0;
-                    window.posicoesTempoReal[busId].startTime = now;
-                }
-
-                // 2. Encontra o segmento exato da rota com base no progresso
+                // Calcular posição EXATA
                 const totalPoints = linha.pontos.length;
-                const exactPosition = (progress / 100) * (totalPoints - 1);
-                const pointIndex = Math.floor(exactPosition);
-                const segmentProgress = exactPosition - pointIndex;
-
-                // Garante que não ultrapassa o último ponto
-                if (pointIndex < totalPoints - 1) {
-                    const pointA = linha.pontos[pointIndex];
-                    const pointB = linha.pontos[pointIndex + 1];
-
-                    // 3. INTERPOLAÇÃO LINEAR (a chave do movimento suave)
-                    // Calcula uma posição intermediária entre o ponto A e B
-                    const newLng = pointA[0] + (pointB[0] - pointA[0]) * segmentProgress;
-                    const newLat = pointA[1] + (pointB[1] - pointA[1]) * segmentProgress;
-
-                    // 4. Atualiza a posição do ônibus com a nova coordenada interpolada
+                const posicaoNaRota = (progress / 100) * (totalPoints - 1);
+                const pontoIndex = Math.floor(posicaoNaRota);
+                
+                if (pontoIndex < totalPoints - 1) {
+                    const pontoA = linha.pontos[pontoIndex];
+                    const pontoB = linha.pontos[pontoIndex + 1];
+                    const quantoEntre = posicaoNaRota - pontoIndex;
+                    
+                    // Posição EXATA entre os pontos
+                    const novaLong = pontoA[0] + (pontoB[0] - pontoA[0]) * quantoEntre;
+                    const novaLat = pontoA[1] + (pontoB[1] - pontoA[1]) * quantoEntre;
+                    
+                    // Atualizar APENAS este ônibus
                     window.posicoesTempoReal[busId] = {
                         ...position,
-                        lng: newLng,
-                        lat: newLat,
+                        lng: novaLong,
+                        lat: novaLat,
                         progresso: progress,
-                        velocidade: 40, // Velocidade constante para simulação suave
-                        ultimaAtualizacao: new Date(),
-                        startTime: position.startTime || startTime // Mantém o tempo de início
+                        velocidade: 40,
+                        ultimaAtualizacao: new Date()
                     };
                 }
             }
-        });
-
-        // Chama a função que atualiza os marcadores no mapa
-        updateBusPositions(Object.entries(window.posicoesTempoReal).map(([id, pos]) => ({
-            id,
-            ...pos
-        })));
+        }
+        
+        // Atualizar APENAS 1 ônibus no mapa
+        updateBusPositions([{
+            id: "CAT-008",
+            ...window.posicoesTempoReal["CAT-008"]
+        }]);
     }
 }
         
